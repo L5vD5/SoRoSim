@@ -430,7 +430,7 @@ classdef Linkage
                             
                             case 'Yes'
 
-                                [n_sact,dc,dcp,Sdiv,Ediv,Inside] = CableActuation(S);
+                                [n_sact,dc,dcp,Sdiv,Ediv,Inside] = CableActuation(S)
                                 
                                 S.dc     = dc;
                                 S.dcp    = dcp;
@@ -491,11 +491,11 @@ classdef Linkage
         C       = GeneralizedCoriolisMatrix(S,q,qd)   %to get the generalized coriolis matrix
         F       = GeneralizedExternalForce(S,q)       %to get the generalized external force matrix
         [t,qqd] = dynamics(S);                        %for dynamic simulation
-        [q,u]   = statics(S,qu0)                      %for static simulation
+        [q,u,list]   = statics(S,uq)                   %for static simulation
         
         plotq0(S,f);       %to plot the free body diagram of the linkage
-        plotq(S,q);        %to plot the state of the linkage for a given q
-        plotqqd(S,t,qqd);  %to get dynamic simulation video output for a given t (time array) and qqd (array of joint coordinates and their time derivatives)
+        xyzlist = plotq(S,q);        %to plot the state of the linkage for a given q
+        plotqqd(S,t,qqd);  %to get dynamic simulation video output for a given t (time array) and qf (array of joint coordinates and their time derivatives)
         
         %--------------------------------------------------------------------------
         %GET FUNCTIONS FOR DEPENDENT PROPERTIES: Connect the properties of

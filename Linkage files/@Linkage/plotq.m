@@ -1,5 +1,5 @@
-function plotq(S,q)
-
+function xyzlist = plotq(S,q)
+xyzlist = [];
 if nargin==1
     q=zeros(S.ndof,1);
 end
@@ -229,7 +229,9 @@ for i=1:N
         x_here   = pos_here(1,:);
         y_here   = pos_here(2,:);
         z_here   = pos_here(3,:);
-        
+        center     = [mean(x_here), mean(y_here), mean(z_here)];
+        xyzlist = [xyzlist, center];
+
         Xpatch(:,i_patch) = x_here';
         Ypatch(:,i_patch) = y_here';
         Zpatch(:,i_patch) = z_here';
@@ -293,9 +295,12 @@ for i=1:N
             x_here     = pos_here(1,:);
             y_here     = pos_here(2,:);
             z_here     = pos_here(3,:);
-            
+%             center     = [mean(x_here), mean(y_here), mean(z_here)];
+%             xyzlist = [xyzlist, center];
+%             scatter3(center(1), center(2), center(3));
+            scatter3(x_here(1), y_here(1), z_here(1));
             %Plotting soft link pieces
-%             plot3(x_here,y_here,z_here,'color',color)
+            plot3(x_here,y_here,z_here,'color',color);
             for jj=1:n_r-1
                 Xpatch(1:5,i_patch)   = [x_pre(jj) x_here(jj) x_here(jj+1) x_pre(jj+1) x_pre(jj)]';
                 Xpatch(6:end,i_patch) = x_pre(jj)*ones(n_r-5,1);
@@ -323,5 +328,5 @@ for i=1:N
         f          = f+1;
     end
 end
-drawnow
+% drawnow
 end
